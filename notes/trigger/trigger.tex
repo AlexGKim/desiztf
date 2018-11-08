@@ -1,0 +1,159 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{comment}
+%SetFonts
+
+%SetFonts
+
+
+\title{Characterization of Time Domain ToO Targets}
+\author{Alex Kim, Jakob Nordin}
+%\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section{Time Domain ToO Targets}
+There are several classes of Time Domain ToO Targets.  
+\begin{itemize}
+\item {\bf Galaxies in the BGS target list that do not yet have a redshift}
+
+\begin{itemize}
+\item BGS Tiles only.
+\item Tile Selection: No influence.
+\item Fiber Assignment: These galaxies given higher priority relative to other BGS targets.
+\item Total $\sim 4.8$ targets per square degree.  85\% will have been identified by the start of the DESI survey, 100\% will be
+identified by the end of the 3-year ZTF survey 6 months after the start of DESI.   Continued target production of this class at $\sim 1.6$ targets sq$^{-1}$yr$^{-1}$ will occur if there is an extension
+of the ZTF survey.
+\end{itemize}
+\item {\bf Galaxies that are not in the BGS target list}
+
+For most BGS-level depth is sufficient, some may require Survey depth.
+\begin{itemize}
+\item BGS, LRG, ELG Tiles.
+\item Tile Selection: No influence. 
+\item Fiber Assignment: Priority relative to BGS, LRG, ELG, Sky targets TBD.
+\item Total $\sim 0.2$ targets per square degree.  85\% will have been identified by the start of the DESI survey, 100\% will be
+identified by the end of the 3-year ZTF survey 6 months after the start of DESI.
+Continued target production of this class  at $\sim 0.007$ targets sq$^{-1}$yr$^{-1}$ will occur if there is an extension
+of the ZTF survey.
+\end{itemize}
+\item {\bf Active transients}
+
+These supernovae are expected to be at $z \lesssim 0.15$.  Some require Survey depth.
+\begin{itemize}
+\item BGS, LRG, ELG Tiles.
+\item Tile Selection: Tiles with active transient given priority.
+\item Fiber Assignment: Priority relative to BGS, LRG, ELG, Sky targets TBD.
+\item $\sim 0.03$ targets per square degree at any given moment.
+\end{itemize}
+The target lists, updated daily, contain SNe that are expected to be above nominal depth thresholds on that night.
+ Graur and Moustakas have quantified extraction efficiency as a function
+of magnitude for the BGS, with the cutoff at   $<20.5$~mag.
+SNe will therefore enter and leave target lists as their light curves evolve. 
+The duration a SN stays in the list depends on its distance
+and absolute magnitude, generally on the time-scale of a week.
+
+An object observed and classified by DESI does not have to be reobserved and is removed from the target list.
+\end{itemize}
+
+All target lists will be updated at $\sim 1$-day timescales.  For galaxy targets, one month latency between fiber assignment and latency is acceptable.
+ For active-transient targets, $<$~few-day latency between fiber assignment and latency is required.
+
+All target lists may have subpriorities determined by the Time Domain Working Group.  To first order, the subpriority will be defined by the
+anticipated quality of (non-DESI)  photometry for the SN, and the expectation that a spectrum may be more efficiently obtained by another
+spectroscopic resource.
+
+The BGS magnitude limit is $r \sim 19.5$.  Most hosts will be brighter than this magnitude, some will be fainter.
+
+\section{Dump from conversation with Ted on Fiber Assignments}
+Can the DESI\_TARGET bitfield be changed dynamically upstream from you; can we create a new target class with some priority or tweak the priority within the existing priority class.  My understanding is that fiber assignment occurs well before an observation.  One of our use cases is to switch an assignment dynamically.  What kind of implications are there, if any, for your bookkeeping?  
+
+This document is available on github git@github.com:AlexGKim/desiztf.git
+
+\begin{comment}
+\section{Properties of the ZTF Survey}
+
+\subsection{Survey area}
+ZTF will survey the visible sky from Palomar with few day cadence, which 
+sets a dec$>-30$ limit.
+Most SN searches will skip the galactic plane, so galactic latidue $>~ 
+13$. The galactic plane is (frequently) observed but is typically skipped 
+for SN searches to limit stellar variability. As a nominal survey, every 
+field visible at Palomar at dec$>-30$ and b$>13$ will be observed every 
+~third day.
+[We could make a figure of the sensitive area vs time during the year if 
+needed.]
+
+\subsection{ZTF SN search season}
+Palomar winter weather is worse, which will both reduce search 
+efficiency and lc quality.
+We therefore assume 300 search days/year.
+As with covering the galactic fields, the ZTF survey will be operating 
+the full year and there will be SNe found also here.
+Not assuming searching the full year also allows for some instrumental 
+downtimes.
+
+\subsection{What ZTF is  searching for}
+Looking for efficient, complete SNIa program. Means looking for smoothly 
+rising transients which are rising >7 days from the 20.5 ZTF detection 
+limit and peaking at <19.5 mag and with multi-band lc compatible with 
+SNIa. Translates into very efficient (pure) selection of transients for 
+spectroscopic follow-up.
+Loosing these requirements (detection, peak, lc-fit) would rapidly 
+increase the number of candidates. This is not assumed here. For a large 
+DESI program, especially looking for early transients or more complete 
+samples this could make sense.
+
+
+\subsection{Expected detection rates}
+Based on a combination of the rate observed so far and simulations we 
+expect ~10 transients that peak each night that fulfills the above 
+requirements. 6-8 of these would be SNe Ia (the remaining mainly Ibc SNe 
+and AGN). The SNIa sample would be expected to be normally distributed 
+with a peak around ~0.08 and extending to z~0.12. Based on previous SN 
+surveys we expect 90\% of the SNeIa to have host galaxies bright enough 
+to be a potential DESI BGS target. (A fraction of the SNe Ia host 
+galaxies will already have eg SDSS redshifts. It has been argued this 
+should be as much as 30\% but in practice so far is has been much lower, 
+more like 10\%).
+
+
+\subsection{Full sample size and priority}
+Scaling the above numbers yields 3000 potential transients / year of ZTF 
+operation evenly distributed over the ZTF SN search area. These could be 
+prioritized according to the following metrics:
+- As mentioned, a fraction will already have some sort of redshift and 
+would thus have lower priority. (remove completely?)
+- Priority inversely weighted with LC quality fit. In the static regime 
+of looking for host galaxy redshift the full transient lightcurve can be 
+used for this, which would could give a very strong rejection of eg AGN 
+variability.
+- Live spectroscopy of hostless transients. Live spectroscopy required 
+for their use, but would of course not have corresponding DESI target.
+- SNe in particular regions of the sky, e.g. galaxies with previous 
+transients or close to voids or high density regions.
+- SNe in regions with additional follow-up, eg. I-band. (This could go 
+both ways - we could tune the I-band coverage region to match the 
+projected DESI fields).
+
+If priorities were used, out of the 3000 candidates/year:
+~100 have very high priority (particular hosts or hostless)
+~1000 have high priority (spectroscopically typed SNe Ia where a host 
+redshift is only missing component for cosmology)
+~1000 "normal" priority (photometric SNeIa or typed but with spotty lc)
+~1000 "low" priority (lc either not great or preexisting redshift)
+
+
+Again, this would be the sample of interest for a SNIa peculiar velocity 
+study. For eg. rates or completeness studies one would like to go 
+deeper, which would easily increase sample size with an order of 
+magnitude.
+\end{comment}
+
+\end{document}  
