@@ -71,8 +71,25 @@ spectroscopic resource.
 
 The BGS magnitude limit is $r \sim 19.5$.  Most hosts will be brighter than this magnitude, some will be fainter.
 
-\section{Dump from conversation with Ted on Fiber Assignments}
-Can the DESI\_TARGET bitfield be changed dynamically upstream from you; can we create a new target class with some priority or tweak the priority within the existing priority class.  My understanding is that fiber assignment occurs well before an observation.  One of our use cases is to switch an assignment dynamically.  What kind of implications are there, if any, for your bookkeeping?  
+\section{Tiles}
+The default plan is to only consider targets within the DESI footprint with active tiles to be observed.  There may be Target
+of Opportunities in non-DESI fields.  A custom tile and fiber-assignment file can be made.
+
+\section{Considerations for Fiber Assignments}
+When Fiber Assignment (FA) occurs has important implications on how ``Active Transient'' targets can be treated.
+The current plan is to run FA a month before observations; this is driven by the speed of the software.   In this case active transient targets
+would be inserted outside of the standard FA process.  There are computational limitations on the ability to rerun FA for subsequent observations
+given an unanticipated fiber override.  Bookkeeping would be necessary to record changes.
+Kisner has improved the software performance to the point where FA may be run just prior to observation.  Then active transient targets can be inserted into
+the target list prior to running Fiber Assignment.  Rapid changes to the target list could make difficult optimizing fiber allocation well advance of
+the observation.
+
+Things necessary for the expanded pipeline:
+\begin{itemize}
+\item New  Object Class or subclass ``bitfields'' for our targets.
+\item Dynamic changes to the input catalog
+\item  Ability to update FA output (FITS) file and bookkeeping if our allocation occurs outside of the standard FA pipeline.
+\end{itemize}
 
 This document is available on github git@github.com:AlexGKim/desiztf.git
 
