@@ -1,4 +1,4 @@
-\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\documentclass[11pt]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
 \usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
 %\geometry{landscape}                		% Activate for rotated page geometry
@@ -12,12 +12,19 @@
 %SetFonts
 
 
-\title{Characterization of Time Domain ToO Targets}
-\author{Alex Kim, Jakob Nordin}
-%\date{}							% Activate to display a given date or no date
+
 
 \begin{document}
+\title{Characterization of Time Domain ToO Targets}
+\author{Alex Kim}
+\date{}							% Activate to display a given date or no date
 \maketitle
+\begin{abstract}
+A DESI secondary observing plan may include Time Domain targets.  Tile Selection, Fiber Allocation, and bookkeeping must be
+designed to accommodate these targets.  This note describes the Time Domain targets in order to inform the design
+of these DESI processes.
+\end{abstract}
+
 \section{Time Domain ToO Targets}
 There are several classes of Time Domain ToO Targets.  
 \begin{itemize}
@@ -76,20 +83,25 @@ The default plan is to only consider targets within the DESI footprint with acti
 of Opportunities in non-DESI fields.  A custom tile and fiber-assignment file can be made.
 
 \section{Considerations for Fiber Assignments}
-When Fiber Assignment (FA) occurs has important implications on how ``Active Transient'' targets can be treated.
-The current plan is to run FA a month before observations; this is driven by the speed of the software.   In this case active transient targets
-would be inserted outside of the standard FA process.  There are computational limitations on the ability to rerun FA for subsequent observations
-given an unanticipated fiber override.  Bookkeeping would be necessary to record changes.
-Kisner has improved the software performance to the point where FA may be run just prior to observation.  Then active transient targets can be inserted into
-the target list prior to running Fiber Assignment.  Rapid changes to the target list could make difficult optimizing fiber allocation well advance of
-the observation.
+
+There are two ways to implement a Fiber Assignment (FA) for a time-domain target.  The first is to modify the target list to include 
+the desired object and priority/subpriority when FA is run.   If the FA is run $> 1$~week of the observation, this method
+is satisfactory for galaxy targets but not active-transient targets.  If the FA is run $<1$~week of the observation, this method is 
+satisfactory for all targets.  An implication is that the target list will evolve non-deterministically.
+
+The second way is by reassigning fibers within an existing pre-generated FA file any time before the observation.
+Quoting Stephen Bailey,
+\begin{quote}
+This would make bookkeeping easier because you know *exactly* what was changed, rather than relying upon an algorithm where the transient may bump target X that then gets picked up by a different fiber such that target Y got bumped, causing a change to target Z...  If implemented as a single fiber override, the bookkeeping for the normal problems becomes equivalent to a fiber that breaks for a single exposure and then returns.
+\end{quote}
 
 Things necessary for the expanded pipeline:
 \begin{itemize}
 \item New  Object Class or subclass ``bitfields'' for our targets.
-\item Dynamic changes to the input catalog
+\item Dynamic changes to the input catalog (this solution not preferred.
 \item  Ability to update FA output (FITS) file and bookkeeping if our allocation occurs outside of the standard FA pipeline.
 \end{itemize}
+
 
 This document is available on github git@github.com:AlexGKim/desiztf.git
 
