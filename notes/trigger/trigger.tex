@@ -15,7 +15,7 @@
 
 
 \begin{document}
-\title{Characterization of Time Domain ToO Targets}
+\title{Characterization of Time Domain ToO Targets from ZTF}
 \author{Alex Kim}
 \date{}							% Activate to display a given date or no date
 \maketitle
@@ -94,6 +94,7 @@ Quoting Stephen Bailey,
 \begin{quote}
 This would make bookkeeping easier because you know *exactly* what was changed, rather than relying upon an algorithm where the transient may bump target X that then gets picked up by a different fiber such that target Y got bumped, causing a change to target Z...  If implemented as a single fiber override, the bookkeeping for the normal problems becomes equivalent to a fiber that breaks for a single exposure and then returns.
 \end{quote}
+To clarify, with a single-fiber override only one target changes.  An update of a target list can in principle change all targets in the rerunning of the allocation algorithm. 
 
 Things necessary for the expanded pipeline:
 \begin{itemize}
